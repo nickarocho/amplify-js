@@ -1,6 +1,8 @@
+/* eslint-disable */
+
 const editJsonFile = require('edit-json-file');
 
-const PACKAGE_JSON_DIR = `${__dirname}/package.json`;
+const PACKAGE_JSON_DIR = `./package.json`;
 
 const file = editJsonFile(PACKAGE_JSON_DIR);
 
