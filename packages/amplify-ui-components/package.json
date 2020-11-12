@@ -33,7 +33,7 @@
     "build:esm:watch": "npm run clean && npm run stencil:watch",
     "build:watch": "npm run clean && npm run stencil:watch",
     "clean": "rimraf dist .stencil",
-    "version": "node scripts/update-deps"
+    "prepublish": "node scripts/update-deps"
   },
   "dependencies": {
     "@aws-amplify/auth": "^3.0.0",
