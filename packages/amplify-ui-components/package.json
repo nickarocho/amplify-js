@@ -32,7 +32,8 @@
     "build": "npm run clean && npm run stencil --ci",
     "build:esm:watch": "npm run clean && npm run stencil:watch",
     "build:watch": "npm run clean && npm run stencil:watch",
-    "clean": "rimraf dist .stencil"
+    "clean": "rimraf dist .stencil",
+    "version": "node scripts/update-deps"
   },
   "dependencies": {
     "@aws-amplify/auth": "^3.0.0",
@@ -63,6 +64,7 @@
     "@typescript-eslint/parser": "^1.12.0",
     "babel-loader": "^8.0.6",
     "concurrently": "^5.0.0",
+    "edit-json-file": "1.5.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
