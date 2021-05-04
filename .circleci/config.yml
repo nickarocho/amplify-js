@@ -640,6 +640,32 @@ jobs:
           category: storage
           sample_name: storageComp
           spec: storage-comp
+  integ_react_amazon_cognito_identity_js_cookie_storage:
+    parameters:
+      browser:
+        type: string
+    executor: js-test-executor
+    <<: *test_env_vars
+    working_directory: ~/amplify-js-samples-staging/samples/react/auth/amazon-cognito-identity-js-cookie-storage
+    steps:
+      - prepare_test_env
+      - integ_test_js:
+          test_name: 'amazon-cognito-identity-js-cookie-storage'
+          framework: react
+          category: auth
+          sample_name: amazon-cognito-identity-js-cookie-storage
+          spec: amazon-cognito-identity-js-cookie-storage
+          browser: << parameters.browser >>
+  integ_node_amazon_cognito_identity_js_cookie_storage:
+    executor: js-test-executor
+    <<: *test_env_vars
+    working_directory: ~/amplify-js-samples-staging/samples/node/auth/amazon-cognito-identity-js-cookie-storage
+    steps:
+      - prepare_test_env
+      - integ_test_node_js:
+          test_name: 'amazon-cognito-identity-js-cookie-storage'
+          category: auth
+          sample_name: amazon-cognito-identity-js-cookie-storage
   integ_react_amazon_cognito_identity_js:
     parameters:
       browser:
@@ -771,6 +797,7 @@ releasable_branches: &releasable_branches
       - ui-components/main
       - 1.0-stable
       - native
+      - cognito-identity-integ-test-cci
 
 test_browsers: &test_browsers
   browser: [chrome, firefox]
@@ -803,7 +830,121 @@ workflows:
       - unit_test:
           requires:
             - build
-      - integ_react_auth:
+      # - integ_react_auth:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_angular_auth:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_vue_auth:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_react_predictions:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_react_interactions:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_vue_interactions:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_angular_interactions:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_react_datastore:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_react_datastore_subs_disabled:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_react_datastore_consecutive_saves:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_react_storage:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_react_storage_multipart_progress:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *test_browsers
+      # - integ_react_storage_ui:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      - integ_react_amazon_cognito_identity_js-cookie-storage:
           requires:
             - integ_setup
             - build
@@ -812,106 +953,7 @@ workflows:
           matrix:
             parameters:
               <<: *test_browsers
-      - integ_angular_auth:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *test_browsers
-      - integ_vue_auth:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *test_browsers
-      - integ_react_predictions:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *test_browsers
-      - integ_react_interactions:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *test_browsers
-      - integ_vue_interactions:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *test_browsers
-      - integ_angular_interactions:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *test_browsers
-      - integ_react_datastore:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *test_browsers
-      - integ_react_datastore_subs_disabled:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *test_browsers
-      - integ_react_datastore_consecutive_saves:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *test_browsers
-      - integ_react_storage:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *test_browsers
-      - integ_react_storage_multipart_progress:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *test_browsers
-      - integ_react_storage_ui:
+      - integ_node_amazon_cognito_identity_js-cookie-storage:
           requires:
             - integ_setup
             - build
@@ -932,73 +974,73 @@ workflows:
             - build
           filters:
             <<: *releasable_branches
-      - integ_rn_ios_storage:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-      - integ_rn_ios_storage_multipart_progress:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-      - integ_rn_ios_push_notifications:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-      - integ_rn_android_storage:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-      - integ_rn_android_storage_multipart_progress:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-      - integ_datastore_auth:
-          requires:
-            - integ_setup
-            - build
-          filters:
-            <<: *releasable_branches
-          matrix:
-            parameters:
-              <<: *datastore_auth_scenarios
-      - deploy:
-          filters:
-            <<: *releasable_branches
-          requires:
-            - unit_test
-            - integ_react_predictions
-            - integ_react_datastore
-            - integ_react_storage
-            - integ_react_storage_multipart_progress
-            - integ_react_storage_ui
-            - integ_react_interactions
-            - integ_angular_interactions
-            - integ_vue_interactions
-            - integ_react_amazon_cognito_identity_js
-            - integ_node_amazon_cognito_identity_js
-            - integ_react_auth
-            - integ_angular_auth
-            - integ_vue_auth
-            - integ_rn_ios_storage
-            - integ_rn_ios_storage_multipart_progress
-            - integ_rn_ios_push_notifications
-            - integ_rn_android_storage
-            - integ_rn_android_storage_multipart_progress
-            - integ_datastore_auth
-      - post_release:
-          filters:
-            branches:
-              only:
-                - release
-          requires:
-            - deploy
+      # - integ_rn_ios_storage:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      # - integ_rn_ios_storage_multipart_progress:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      # - integ_rn_ios_push_notifications:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      # - integ_rn_android_storage:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      # - integ_rn_android_storage_multipart_progress:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      # - integ_datastore_auth:
+      #     requires:
+      #       - integ_setup
+      #       - build
+      #     filters:
+      #       <<: *releasable_branches
+      #     matrix:
+      #       parameters:
+      #         <<: *datastore_auth_scenarios
+      # - deploy:
+      #     filters:
+      #       <<: *releasable_branches
+      #     requires:
+      #       - unit_test
+      #       - integ_react_predictions
+      #       - integ_react_datastore
+      #       - integ_react_storage
+      #       - integ_react_storage_multipart_progress
+      #       - integ_react_storage_ui
+      #       - integ_react_interactions
+      #       - integ_angular_interactions
+      #       - integ_vue_interactions
+      #       - integ_react_amazon_cognito_identity_js-cookie-storage
+      #       - integ_node_amazon_cognito_identity_js-cookie-storage
+      #       - integ_react_auth
+      #       - integ_angular_auth
+      #       - integ_vue_auth
+      #       - integ_rn_ios_storage
+      #       - integ_rn_ios_storage_multipart_progress
+      #       - integ_rn_ios_push_notifications
+      #       - integ_rn_android_storage
+      #       - integ_rn_android_storage_multipart_progress
+      #       - integ_datastore_auth
+      # - post_release:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - release
+      #     requires:
+      #       - deploy
